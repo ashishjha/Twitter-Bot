@@ -86,5 +86,5 @@ function retweet(searchText) {
 
 // Run every 60 seconds
 setInterval(function () {
-  retweet('#React.js OR #Node.js')
+  retweet('#Javascript OR #Node.js')
 }, 60000)
