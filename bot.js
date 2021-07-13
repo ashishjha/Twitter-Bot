@@ -86,5 +86,5 @@ function retweet(searchText) {
 
 // Run every 60 seconds
 setInterval(function () {
-  retweet('#DataScience OR #DataVisualization')
+  retweet('#React.js OR #Node.js')
 }, 60000)
