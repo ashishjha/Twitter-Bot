@@ -3,6 +3,11 @@ const twit = require('twit')
 
 const T = new twit(config)
 
+// Utility function - Gives unique elements from an array
+function onlyUnique(value, index, self) {
+  return self.indexOf(value) === index
+}
+
 function retweet(searchText) {
   // Params to be passed to the 'search/tweets' API endpoint
   let params = {
@@ -19,10 +24,25 @@ function retweet(searchText) {
       if (!err_search) {
         let tweetIDList = []
         for (let tweet of tweets) {
-          tweetIDList.push(tweet.id_str)
-
-          //more code here later...
+          // To avoid duplication of retweets
+          if (tweet.text.startsWith('RT @')) {
+            // If tweet text starts with "RT @" then it is a retweeted tweet,
+            // with a different 'id_str' than the original
+            console.log('\nStarts with RT@, adding retweeted status id_str')
+            if (tweet.retweeted_status) {
+              tweetIDList.push(tweet.retweeted_status.id_str)
+            } else {
+              tweetIDList.push(tweet.id_str)
+            }
+          } else {
+            tweetIDList.push(tweet.id_str)
+          }
         }
+
+        // Get only unique entries
+        tweetIDList = tweetIDList.filter(onlyUnique)
+
+        console.log('TweetID LIST = \n' + tweetIDList)
 
         // Call the 'statuses/retweet/:id' API endpoint for retweeting EACH of the tweetID
         for (let tweetID of tweetIDList) {
@@ -36,6 +56,10 @@ function retweet(searchText) {
                 console.log('\nError... Duplication maybe... ' + tweetID)
                 console.log('Error = ' + err_rt)
               }
+
+              // For debugging
+              // console.log("Data = " + data_rt.text)
+              // console.log(data_rt)
             }
           )
           /*------- Liking The Tweets ---------*/
@@ -62,5 +86,5 @@ function retweet(searchText) {
 
 // Run every 60 seconds
 setInterval(function () {
-  retweet('#javascript OR #Node.js')
+  retweet('#DataScience OR #DataVisualization')
 }, 60000)
