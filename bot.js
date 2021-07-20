@@ -86,5 +86,7 @@ function retweet(searchText) {
 
 // Run every 60 seconds
 setInterval(function () {
-  retweet('#ashishBotTwitteraj OR #Javascript')
+  retweet(
+    '#javascript OR #nodejs OR #datascience OR #python OR #machinelearning OR #aws OR #azure'
+  )
 }, 60000)
