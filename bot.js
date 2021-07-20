@@ -86,5 +86,5 @@ function retweet(searchText) {
 
 // Run every 60 seconds
 setInterval(function () {
-  retweet('#Javascript OR #ashishBotTwitter')
+  retweet('#ashishBotTwitter')
 }, 60000)
