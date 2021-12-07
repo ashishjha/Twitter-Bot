@@ -84,9 +84,9 @@ function retweet(searchText) {
   )
 }
 
-// Run every 60 seconds
+// Run every 120 seconds
 setInterval(function () {
   retweet(
     '#javascript OR #nodejs OR #datascience oR #mulesoft OR #salesforce OR #devops OR #python OR #machinelearning OR #aws OR #azure'
   )
-}, 60000)
+}, 120000)
